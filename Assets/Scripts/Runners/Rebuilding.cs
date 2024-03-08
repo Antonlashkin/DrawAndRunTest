@@ -1,5 +1,6 @@
 using Dreamteck.Splines;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class Rebuilding : MonoBehaviour
@@ -34,19 +35,20 @@ public class Rebuilding : MonoBehaviour
                 ditanceNow = 0;
             }
         }
-
-        float leftPos = Screen.width / 2 - drowWindow.rect.width / 2 + drowWindow.anchoredPosition.x;
-        float rightPos = Screen.width / 2 + drowWindow.rect.width / 2 + drowWindow.anchoredPosition.x;
-        float bottomPos = Screen.height / 2 - drowWindow.rect.height / 2 + drowWindow.anchoredPosition.y;
-        float topPos = Screen.height / 2 + drowWindow.rect.height / 2 + drowWindow.anchoredPosition.y;
+        float leftPos = Screen.width / 2 - drowWindow.rect.width / 2 + drowWindow.localPosition.x;
+        float rightPos = Screen.width / 2 + drowWindow.rect.width / 2 + drowWindow.localPosition.x;
+        float bottomPos = Screen.height / 2 - drowWindow.rect.height / 2 + drowWindow.localPosition.y;
+        float topPos = Screen.height / 2 + drowWindow.rect.height / 2 + drowWindow.localPosition.y;
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            Vector2 _pointsForRebuilding = new Vector2(_points[numbers[i]].x - leftPos - ((rightPos -leftPos) /2), _points[numbers[i]].y - bottomPos - ((topPos - bottomPos) / 2));
+            Vector2 _pointsForRebuilding = new Vector2(_points[numbers[i % numbers.Count]].x - leftPos - ((rightPos - leftPos) / 2), _points[numbers[i % numbers.Count]].y - bottomPos - ((topPos - bottomPos) / 2));
             float PosX = _pointsForRebuilding.x / (drowWindow.rect.width / 2) * zoneSpawnXSize;
             float PosZ = _pointsForRebuilding.y / (drowWindow.rect.height / 2) * zoneSpawnYSize - transform.position.z;
             transform.GetChild(i).transform.position = new Vector3(PosX, 0, PosZ);
         }
+
+  
     }
 
     public void StartRun()

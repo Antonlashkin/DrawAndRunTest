@@ -10,11 +10,8 @@ public class Line : MonoBehaviour
 
     public void SetPosition(Vector3 pos)
     {
-        if (!CanAppend(pos))
-        {
-            return;
-        }
-        
+        _renderer = GetComponent<LineRenderer>();
+
         _points.Add(pos);
 
        Vector2 positionForRebuiding = Input.mousePosition;
@@ -22,16 +19,6 @@ public class Line : MonoBehaviour
 
         _renderer.positionCount++;
         _renderer.SetPosition(_renderer.positionCount - 1, pos);
-    }
-
-    private bool CanAppend(Vector3 pos)
-    {
-        _renderer = GetComponent<LineRenderer>();
-        if (_renderer.positionCount == 0)
-        {
-            return true;
-        }
-        return Vector3.Distance(_renderer.GetPosition(_renderer.positionCount-1), pos) > DrawManager.resolution;
     }
 
     public List<Vector2> GetPoints()

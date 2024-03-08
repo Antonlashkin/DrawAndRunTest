@@ -12,17 +12,16 @@ public class DrawManager : MonoBehaviour
     private float topPos;
     private float bottomPos;
 
-    public const float resolution = 0.00001f;
 
     private Line _currentLine;
 
     private void Start()
     {
         _cam = Camera.main;
-        leftPos = Screen.width / 2 - drowWindow.rect.width / 2 + drowWindow.anchoredPosition.x;
-        rightPos = Screen.width / 2 + drowWindow.rect.width / 2 + drowWindow.anchoredPosition.x;
-        bottomPos = Screen.height / 2 - drowWindow.rect.height / 2 + drowWindow.anchoredPosition.y;
-        topPos = Screen.height / 2 + drowWindow.rect.height / 2 + drowWindow.anchoredPosition.y;
+        leftPos = Screen.width / 2 - drowWindow.rect.width / 2 + drowWindow.localPosition.x;
+        rightPos = Screen.width / 2 + drowWindow.rect.width / 2 + drowWindow.localPosition.x;
+        bottomPos = Screen.height / 2 - drowWindow.rect.height / 2 + drowWindow.localPosition.y;
+        topPos = Screen.height / 2 + drowWindow.rect.height / 2 + drowWindow.localPosition.y;
     }
 
     private void Update()

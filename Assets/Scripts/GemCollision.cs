@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GemCollision : MonoBehaviour
@@ -7,7 +8,16 @@ public class GemCollision : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             ScoreIncriment.Incriment();
-            Destroy(gameObject);
+            StartCoroutine(DestroyGem());
         }
+    }
+
+    private IEnumerator DestroyGem()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetComponent<BoxCollider>().enabled = false;
+        transform.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
     }
 }

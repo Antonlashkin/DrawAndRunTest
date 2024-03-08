@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ObstacleCollision : MonoBehaviour
@@ -6,7 +7,17 @@ public class ObstacleCollision : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            Destroy(other.gameObject);
+            other.transform.GetChild(2).gameObject.SetActive(true);
+            other.transform.GetChild(0).gameObject.SetActive(false);
+            other.transform.GetChild(1).gameObject.SetActive(false);
+            other.transform.SetParent(transform.parent);
+            RunnerDeath(other);
         }
+    }
+
+    private IEnumerator RunnerDeath(Collider other)
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(other.gameObject);
     }
 }
